@@ -24,8 +24,9 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.0
-  google_fonts: ^1.1.0
+  google_fonts: ^1.1.1
   provider: ^4.3.2+2
+  smooth_star_rating: 1.1.1
 
 dev_dependencies:
   flutter_test:
@@ -36,6 +37,11 @@ flutter:
   assets:
     - assets/background.jpg
     - assets/design.png
+    - assets/doodle.png
+    - assets/coffee1.png
+    - assets/coffee2.png
+    - assets/coffee3.png
+    - assets/coffee4.png
 
   fonts:
     - family: FunIcons
