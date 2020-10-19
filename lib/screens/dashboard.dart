@@ -1,4 +1,5 @@
 import 'package:UITrain/constants/color_palette.dart';
+import 'package:UITrain/widgets/filtered_items.dart';
 import 'package:UITrain/widgets/side_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,17 +13,81 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   final colorPallete = ColorPalette();
+  final List<Map<String, dynamic>> _navigateItems = [
+    {
+      'id': 1,
+      'text': 'GoldBrew',
+      'isChoose': true,
+      'url': 'assets/coffee1.png',
+      'price': '150',
+      'desc': 'Fantastic brew',
+      'reviews': 21,
+      'starCount': 4.0,
+      'color': ColorPalette().firstSlice,
+    },
+    {
+      'id': 2,
+      'text': 'McCafe',
+      'isChoose': false,
+      'url': 'assets/coffee2.png',
+      'price': '200',
+      'desc': 'You won\'t forget this',
+      'reviews': 3,
+      'starCount': 3.0,
+      'color': ColorPalette().secondSlice,
+    },
+    {
+      'id': 3,
+      'text': 'NesCafe',
+      'isChoose': false,
+      'url': 'assets/coffee3.png',
+      'price': '299',
+      'desc': 'Give it a try!',
+      'reviews': 15,
+      'starCount': 3.5,
+      'color': ColorPalette().firstSlice,
+    },
+    {
+      'id': 4,
+      'text': 'Cold Brew',
+      'isChoose': false,
+      'url': 'assets/coffee4.png',
+      'price': '399',
+      'desc': 'Just say yes',
+      'reviews': 69,
+      'starCount': 5.0,
+      'color': ColorPalette().secondSlice,
+    },
+    {
+      'id': 5,
+      'text': 'Black Gold',
+      'isChoose': false,
+      'url': 'assets/coffee1.png',
+      'price': '499',
+      'desc': 'Here we go',
+      'reviews': 12,
+      'starCount': 2.0,
+      'color': ColorPalette().firstSlice,
+    },
+  ];
+  int get _choosedIndex {
+    return _navigateItems.indexWhere((element) => element['isChoose'] == true);
+  }
+
+  void _switchItem(int id) {
+    setState(() {
+      _navigateItems[_choosedIndex]['isChoose'] = false;
+      int newIndex =
+          _navigateItems.indexWhere((element) => element['id'] == id);
+      _navigateItems[newIndex]['isChoose'] = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
-    final screenWidth = MediaQuery.of(context).size.width;
-    final List<Map<String, dynamic>> _navigateItems = [
-      {'id': 1, 'text': 'GoldBrew', 'isChoose':true,},
-      {'id': 2, 'text': 'McCafe', 'isChoose':false,},
-      {'id': 3, 'text': 'NesCafe', 'isChoose':false,},
-      {'id': 4, 'text': 'Cold Brew', 'isChoose':false,},
-      {'id': 5, 'text': 'Black Gold', 'isChoose':false,},
-    ];
+    var screenHeight = MediaQuery.of(context).size.height;
+    var screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -46,7 +111,7 @@ class _DashboardState extends State<Dashboard> {
           Positioned(
             top: 35.0,
             left: 20.0,
-            child: Icon(Icons.shopping_bag),
+            child: Icon(Icons.shopping_cart),
           ),
           Positioned(
             top: 100.0,
@@ -95,10 +160,14 @@ class _DashboardState extends State<Dashboard> {
             ),
           ),
           SideNavigator(
+            _navigateItems,
+            _switchItem,
+          ),
+          FilteredItems(
+            _navigateItems[_choosedIndex],
             screenWidth,
             screenHeight,
-            _navigateItems,
-          ),
+          )
         ],
       ),
     );
