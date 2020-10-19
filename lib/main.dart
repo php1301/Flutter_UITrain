@@ -1,3 +1,4 @@
+import 'package:UITrain/screens/coffee_details.dart';
 import 'package:UITrain/screens/dashboard.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +15,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Dashboard(),
+      routes: {
+        '/': (ctx) => Dashboard(),
+        CoffeeDetails.routeName: (ctx) => CoffeeDetails(),
+      },
     );
   }
 }
